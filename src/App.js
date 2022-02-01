@@ -1,23 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
 
 function App() {
+  let [count, setCount] = useState(0);
+
+  // case 1 when dependency array is empty 
+  // it works like componentDidMount in class component
+  // i.e. its is executed only once after first render
+  useEffect(()=>{
+    console.log("use effect was executed")
+  },[])
+
+  // case 2 
+  // when we omit dependency array , use efect will execute after every render
+  // can not update state in this case , as it runs after every render , will end in infinite loop 
+  // and will give error
+  useEffect(()=>{
+    console.log("use effect case 2 was executed");
+  })
+
+
+  console.log("component was rendered");
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <button
+        onClick={() => {
+          setCount(count + 1);
+        }}
+      >
+        +
+      </button>
+      <p>{count}</p>
+      <button
+        onClick={() => {
+          setCount(count - 1);
+        }}
+      >
+        -
+      </button>
     </div>
   );
 }
